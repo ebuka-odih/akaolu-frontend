@@ -1,12 +1,5 @@
 'use client';
 
-import { Button } from '@/components/ui/button';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
 
 export default function Navbar() {
@@ -15,7 +8,7 @@ export default function Navbar() {
       <div className="container mx-auto flex items-center justify-between py-4 px-6">
         {/* Logo */}
         <Link href="/" className="text-xl font-bold">
-          MySite
+          Olu
         </Link>
 
         {/* Navigation Links */}

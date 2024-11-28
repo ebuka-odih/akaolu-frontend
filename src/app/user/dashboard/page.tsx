@@ -1,82 +1,105 @@
-import { FaHome, FaUser, FaList, FaBookmark, FaEnvelope, FaSignOutAlt } from "react-icons/fa";
+'use client';
 
-export default function Dashboard() {
+import BarChart from "@/components/BarChart";
+import PageTitle from "@/components/PageTitle";
+import Card, { CardContent, CardProps } from "@/components/card";
+import { Activity, CreditCard, DollarSign, Users } from "lucide-react";
+import SalesCard, { SalesProps } from "@/components/SalesCard";
+
+const cardData: CardProps[] = [
+  {
+    label: "Total Revenue",
+    amount: "$45,231.89",
+    discription: "+20.1% from last month",
+    icon: DollarSign,
+  },
+  {
+    label: "Subscription",
+    amount: "+2350",
+    discription: "+180.1% from last month",
+    icon: Users,
+  },
+  {
+    label: "Sales",
+    amount: "+12,234",
+    discription: "+19% from last month",
+    icon: CreditCard,
+  },
+  {
+    label: "Active Mow",
+    amount: "+573",
+    discription: "+201 from last month",
+    icon: Activity,
+  },
+];
+
+const userSalesData: SalesProps[] = [
+  {
+    name: "Olivia Martin",
+    email: "olivia.martin@email.com",
+    salesAmount: "+$1,999.00",
+  },
+  {
+    name: "Jackson Lee",
+    email: "isabella.nguyen@email.com",
+    salesAmount: "+$1,999.00",
+  },
+  {
+    name: "Isabella Nguyen",
+    email: "isabella.nguyen@email.com",
+    salesAmount: "+$39.00",
+  },
+  {
+    name: "William Kim",
+    email: "will@email.com",
+    salesAmount: "+$299.00",
+  },
+  {
+    name: "Sofia Davis",
+    email: "sofia.davis@email.com",
+    salesAmount: "+$39.00",
+  },
+];
+
+export default function UserDashboard() {
   return (
-    <div className="min-h-screen bg-gray-100 flex">
-      {/* Sidebar */}
-      <div className="hidden lg:block w-56 bg-white shadow-lg rounded-md mt-6 ml-10">
-        <div className="flex flex-col">
-          {/* Avatar Section */}
-          <div className="flex items-center justify-center py-6">
-            <div className="w-16 h-16 rounded-full bg-gray-200 flex items-center justify-center">
-              <span className="text-gray-500 font-bold text-xl">A</span>
-            </div>
-          </div>
+      <div className="flex flex-col gap-5 w-full">
+        <PageTitle title="Dashboard"/>
+        <section className="grid w-full grid-cols-1 gap-4 gap-x-8 transition-all sm:grid-cols-2 xl:grid-cols-4">
+          {cardData.map((data, index) => (
+              <Card
+                  key={index}
+                  amount={data.amount}
+                  discription={data.discription}
+                  icon={data.icon}
+                  label={data.label}
+              />
+          ))}
+        </section>
 
-          {/* Menu Items */}
-          <div className="flex flex-col">
-            <a
-              href="#dashboard"
-              className="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors bg-danger text-white shadow-md"
-            >
-              <FaHome className="mr-3" />
-              Dashboard
-            </a>
-            <a
-              href="#profile"
-              className="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors"
-            >
-              <FaUser className="mr-3" />
-              Profile
-            </a>
-            <a
-              href="#my-listing"
-              className="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors"
-            >
-              <FaList className="mr-3" />
-              My Listing
-            </a>
-            <a
-              href="#bookmarks"
-              className="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors"
-            >
-              <FaBookmark className="mr-3" />
-              Bookmarks
-            </a>
-            <a
-              href="#messages"
-              className="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors"
-            >
-              <FaEnvelope className="mr-3" />
-              Messages
-            </a>
-            <a
-              href="#logout"
-              className="flex items-center px-4 py-3 text-sm font-medium hover:bg-gray-100 rounded-md transition-colors"
-            >
-              <FaSignOutAlt className="mr-3" />
-              Logout
-            </a>
-          </div>
-        </div>
+        <section className="grid grid-cols-1 gap-4 transition-all lg:grid-cols-2">
+          <CardContent>
+            <p className="p-4 font-semibold">Overview</p>
+            <BarChart/>
+          </CardContent>
+          <CardContent className="flex justify-between gap-4">
+            <section>
+              <p>Recent Sales</p>
+              <p className="text-sm text-gray-400">
+                You made 265 sales this month.
+              </p>
+            </section>
+            {userSalesData.map((data, index) => (
+                <SalesCard
+                    key={index}
+                    email={data.email}
+                    name={data.name}
+                    salesAmount={data.salesAmount}
+                />
+            ))}
+          </CardContent>
+        </section>
       </div>
 
-      {/* Main Content */}
-      <div className="flex-1 mt-6 ml-4 mr-5 lg:ml-5 mb:ml-0">
-        <div className="bg-gradient-to-b from-gray-800 to-gray-700 text-white py-12 px-6 rounded-md shadow-md">
-          <h1 className="text-4xl font-bold">Dashboard</h1>
-        </div>
-
-        <div className="bg-white rounded-lg shadow-md p-6 mt-6">
-          {/* Content Section */}
-          <div className="py-6">
-            <h2 className="text-lg font-medium">Welcome to your Dashboard</h2>
-            <p className="text-gray-600 mt-2">
-              Manage your profile, listings, and more. Navigate through the menu to access different sections of the platform.
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
   );
 }

@@ -36,27 +36,12 @@ const listings = [
     image: "https://img.freepik.com/free-photo/young-afro-man-against-yellow-wall_1194-433475.jpg",
     user: { name: "Orlando Diggs", avatar: "https://blog.bulbthings.com/wp-content/uploads/2023/02/shutterstock_2190938193.jpg" },
   },
-  {
-    id: 3,
-    featured: true,
-    category: "House Painter",
-    title: "CDL A OTR Company Driver Job",
-    location: "Lagos",
-    phone: "+44 6633 6526",
-    views: 4000,
-    rating: 4.0,
-    reviews: 50,
-    price: 350,
-    oldPrice: 450,
-    image: "https://img.freepik.com/free-photo/young-afro-man-against-yellow-wall_1194-433475.jpg",
-    user: { name: "Orlando Diggs", avatar: "https://blog.bulbthings.com/wp-content/uploads/2023/02/shutterstock_2190938193.jpg" },
-  },
 ];
 
 export default function UserDashboard() {
   return (
       <div className="flex flex-col gap-5 w-full">
-        <PageTitle title="Latest Listing"/>
+        <PageTitle title="My Listing"/>
 
         {/* New Listings Section */}
         <section>

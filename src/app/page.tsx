@@ -1,12 +1,14 @@
 import Image from "next/image";
 import logoImg from '@/public/images/logo.png'
-import Navbar from "@/app/layout/navbar";
+import Navbar from "@/components/layout/navbar";
 
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <Navbar />
+      <div>
+           <Navbar />
+            <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
+
         <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
         <Image
           className=""
@@ -16,11 +18,12 @@ export default function Home() {
           height={200}
           priority
         />
-       
+
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-       
+
       </footer>
     </div>
-  );
+      </div>
+);
 }

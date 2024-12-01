@@ -14,16 +14,15 @@ export default function UserLayout({children,}: { children: React.ReactNode; }) 
     const links = [
         {title: "Home", href: "/user/dashboard", icon: LayoutDashboard},
         {title: "Reviews", href: "/users", icon: Star},
-        {title: "Listing", href: "/users", icon: ListStart},
+        {title: "Listing", href: "/user/listing", icon: ListStart},
+        // {title: "Favorite", href: "/users", icon: BookmarkCheck},
         {title: "Profile", href: "/profile", icon: User},
         {title: "Logout", href: "/logout", icon: LogOut},
     ];
 
     return (
         <div>
-            <div className="hidden lg:block">
-                <Navbar/>
-            </div>
+            <Navbar/>
             <div className={cn("min-h-screen w-full text-black flex", inter.className,
                 {"debug-screens": process.env.NODE_ENV === "development"}
             )}

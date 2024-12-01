@@ -44,7 +44,7 @@ export default function Sidebar({}: Props) {
                 },
                 {
                   title: "Listing",
-                  href: "/users",
+                  href: "/user/listing",
                   icon: ListStart,
                   variant: "ghost",
                  },

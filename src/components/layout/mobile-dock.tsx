@@ -24,9 +24,9 @@ export function MobileDockMenu({ links }: MobileMenuProps) {
             key={index}
             href={link.href}
             className={cn(
-              "flex flex-col items-center justify-center py-2 px-4 text-sm",
+              "flex flex-col items-center justify-center py-1 px-2 text-sm",
               pathName === link.href
-                ? "bg-[#c10037] text-white rounded-xl" // Rounded edges for the active menu
+                ? "bg-[#c10037] text-white rounded-2xl" // Rounded edges for the active menu
                 : "text-gray-600 hover:border-[#c10037] hover:border dark:text-gray-400",
               "transition-all ease-in-out duration-150"
             )}

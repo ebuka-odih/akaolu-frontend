@@ -2,10 +2,11 @@
 
 import {Inter} from "next/font/google";
 import {cn} from "@/lib/utils";
-import Sidebar from "@/components/ui/sidebar";
+import Sidebar from "@/components/layout/sidebar";
 import Navbar from "@/components/layout/navbar";
 import {MobileDockMenu} from "@/components/layout/mobile-dock";
 import {LayoutDashboard, ListStart, LogOut, Star, User} from "lucide-react";
+import MobileMenuWithSearch from "@/components/layout/mobile-menu";
 
 const inter = Inter({subsets: ["latin"]});
 
@@ -23,6 +24,7 @@ export default function UserLayout({children,}: { children: React.ReactNode; }) 
     return (
         <div>
             <Navbar/>
+            <MobileMenuWithSearch />
             <div className={cn("min-h-screen w-full text-black flex", inter.className,
                 {"debug-screens": process.env.NODE_ENV === "development"}
             )}

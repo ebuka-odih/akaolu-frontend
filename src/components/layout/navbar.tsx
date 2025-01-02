@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { Store } from "lucide-react";
+import logoImg from "@/public/images/2.png";
+import Image from "next/image";
 
 export default function Navbar() {
   return (
@@ -9,7 +11,8 @@ export default function Navbar() {
         <div className="container mx-auto flex items-center justify-between py-4 px-6">
           {/* Logo */}
           <Link href="/" className="text-xl font-bold text-black">
-            Olu Marketplace
+            Olu Listing
+            {/*<Image className="" src={logoImg} alt="OLU.js logo" width={230} height={200} priority/>*/}
           </Link>
 
           {/* Search Bar */}
@@ -53,8 +56,8 @@ export default function Navbar() {
               <span className="mr-2">Claim a Shop</span>
               <Store className="w-4 h-4 text-danger"/>
             </Link>
-            <Link href="/write-a-review" className="text-gray-600 hover:text-black">
-              Write a Review
+            <Link href="/user/dashboard" className="text-gray-600 hover:text-black">
+             Dashboard
             </Link>
             <Link
                 href="/auth/login"
@@ -78,9 +81,6 @@ export default function Navbar() {
           </Link>
           <Link href="/home-services" className="hover:text-black">
             Home Services
-          </Link>
-          <Link href="/auto-services" className="hover:text-black">
-            Auto Services
           </Link>
           <Link href="/more" className="hover:text-black">
             More

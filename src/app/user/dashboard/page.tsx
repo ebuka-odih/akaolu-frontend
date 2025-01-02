@@ -1,9 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import PageTitle from "@/components/PageTitle";
-import { Button } from "@/components/ui/button";
-import { LucideEye, LucideMapPin } from "lucide-react";
-
+import Link from 'next/link';
 
 const listings = [
   {
@@ -21,112 +20,72 @@ const listings = [
     image: "https://blog.bulbthings.com/wp-content/uploads/2023/02/shutterstock_2190938193.jpg",
     user: { name: "John Doe", avatar: "https://blog.bulbthings.com/wp-content/uploads/2023/02/shutterstock_2190938193.jpg" },
   },
-  {
-    id: 2,
-    featured: true,
-    category: "House Painter",
-    title: "CDL A OTR Company Driver Job",
-    location: "Lagos",
-    phone: "+44 6633 6526",
-    views: 4000,
-    rating: 4.0,
-    reviews: 50,
-    price: 350,
-    oldPrice: 450,
-    image: "https://img.freepik.com/free-photo/young-afro-man-against-yellow-wall_1194-433475.jpg",
-    user: { name: "Orlando Diggs", avatar: "https://blog.bulbthings.com/wp-content/uploads/2023/02/shutterstock_2190938193.jpg" },
-  },
-  {
-    id: 3,
-    featured: true,
-    category: "House Painter",
-    title: "CDL A OTR Company Driver Job",
-    location: "Lagos",
-    phone: "+44 6633 6526",
-    views: 4000,
-    rating: 4.0,
-    reviews: 50,
-    price: 350,
-    oldPrice: 450,
-    image: "https://img.freepik.com/free-photo/young-afro-man-against-yellow-wall_1194-433475.jpg",
-    user: { name: "Orlando Diggs", avatar: "https://blog.bulbthings.com/wp-content/uploads/2023/02/shutterstock_2190938193.jpg" },
-  },
+  // Add other listings here...
 ];
 
 export default function UserDashboard() {
+  const [user, setUser] = useState(null); // State to hold user details
+  const [loading, setLoading] = useState(true); // State to manage loading
+
+  // Fetch user details
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch('/api/auth/me', {
+          method: 'POST',
+          credentials: 'include', // Ensures cookies are sent with the request
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          setUser(data); // Set user data
+        } else {
+          console.error('Failed to fetch user details', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching user details:', error);
+      } finally {
+        setLoading(false); // Stop loading
+      }
+    };
+
+    fetchUser();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (!user) {
+    return <div>User not logged in. Please log in to access the dashboard.</div>;
+  }
+
   return (
-      <div className="flex flex-col gap-5 w-full">
-        <PageTitle title="Latest Listing"/>
-
-        {/* New Listings Section */}
-        <section>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {listings.map((listing) => (
-                <div
-                    key={listing.id}
-                    className="flex flex-col sm:flex-row bg-white rounded-lg shadow-md overflow-hidden"
-                >
-                  {/* Image Section */}
-                  <div className="w-full sm:w-1/2">
-                    <img
-                        src={listing.image}
-                        alt={listing.title}
-                        className="h-full w-full object-cover"
-                    />
-                  </div>
-
-                  {/* Content Section */}
-                  <div className="flex flex-col justify-between p-6 w-full sm:w-1/2">
-                    <div>
-                      <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-2">
-                        <div className="flex items-center gap-1">
-                          <img
-                              src={listing.user.avatar}
-                              alt={listing.user.name}
-                              className="w-5 h-5 rounded-full"
-                          />
-                          <span>{listing.user.name}</span>
-                        </div>
-
-                      </div>
-
-                      <h3 className="text-lg font-semibold text-gray-900 dark:text-white truncate">
-                        {listing.title}
-                      </h3>
-                      <span>{listing.category}</span>
-
-                      <div className="flex items-center text-sm text-gray-600 dark:text-gray-400 mt-2">
-                        <LucideMapPin className="w-4 h-4 mr-1"/>
-                        {listing.location}
-                      </div>
-
-                      <div className="flex items-center gap-4 text-sm text-gray-600 dark:text-gray-400 mt-3">
-                        <div className="flex items-center gap-1">
-                          <span
-                              className="bg-orange-100 text-orange-500 px-2 py-1 rounded font-medium">{listing.rating + ".0"}</span>
-                          <span className="ml-1 text-xs">({listing.reviews} Reviews)</span>
-                        </div>
-                        <div className="flex items-center gap-1">
-                        <LucideEye className="w-4 h-4"/>
-                          {listing.views}
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="mt-2">
-                      <div className="flex">
-                        <Button variant="link" className="text-blue-600">
-                          View details
-                        </Button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            ))}
-          </div>
-
-        </section>
-
+    <div className="dashboard-container">
+      <PageTitle title={`Welcome, ${user.name}`} />
+      <div className="user-details">
+        <img src={user.avatar || '/default-avatar.png'} alt={`${user.name}'s avatar`} className="avatar" />
+        <p>Email: {user.email}</p>
+        <p>Role: {user.role}</p>
       </div>
+      <div className="listings-container">
+        {listings.map((listing) => (
+          <div key={listing.id} className="listing-card">
+            <img src={listing.image} alt={listing.title} />
+            <div className="listing-info">
+              <h3>{listing.title}</h3>
+              <p>Category: {listing.category}</p>
+              <p>Location: {listing.location}</p>
+              <p>Price: ${listing.price} (Old: ${listing.oldPrice})</p>
+              <p>Views: {listing.views} | Rating: {listing.rating} | Reviews: {listing.reviews}</p>
+              <p>Contact: {listing.phone}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
   );
 }

@@ -1,5 +1,129 @@
-import { NavItem } from '@/types';
+import { NavItem } from "@/types";
 
+export const config = {
+  profile_picture: "/images/profile.jpg",
+};
+
+export const userst: User[] = [
+  {
+    id: 1,
+    name: "Candice Schiner",
+    company: "Dell",
+    role: "Frontend Developer",
+    verified: false,
+    status: "Active",
+  },
+  {
+    id: 2,
+    name: "John Doe",
+    company: "TechCorp",
+    role: "Backend Developer",
+    verified: true,
+    status: "Active",
+  },
+  {
+    id: 3,
+    name: "Alice Johnson",
+    company: "WebTech",
+    role: "UI Designer",
+    verified: true,
+    status: "Active",
+  },
+  {
+    id: 4,
+    name: "David Smith",
+    company: "Innovate Inc.",
+    role: "Fullstack Developer",
+    verified: false,
+    status: "Inactive",
+  },
+  {
+    id: 5,
+    name: "Emma Wilson",
+    company: "TechGuru",
+    role: "Product Manager",
+    verified: true,
+    status: "Active",
+  },
+  {
+    id: 6,
+    name: "James Brown",
+    company: "CodeGenius",
+    role: "QA Engineer",
+    verified: false,
+    status: "Active",
+  },
+  {
+    id: 7,
+    name: "Laura White",
+    company: "SoftWorks",
+    role: "UX Designer",
+    verified: true,
+    status: "Active",
+  },
+  {
+    id: 8,
+    name: "Michael Lee",
+    company: "DevCraft",
+    role: "DevOps Engineer",
+    verified: false,
+    status: "Active",
+  },
+  {
+    id: 9,
+    name: "Olivia Green",
+    company: "WebSolutions",
+    role: "Frontend Developer",
+    verified: true,
+    status: "Active",
+  },
+  {
+    id: 10,
+    name: "Robert Taylor",
+    company: "DataTech",
+    role: "Data Analyst",
+    verified: false,
+    status: "Active",
+  },
+];
+export const reviews: Review[] = [
+  {
+    initials: "OM",
+    name: "Olivia Martin",
+    review: "olivia.martin@email.com",
+    date: "8/01/2025",
+  },
+  {
+    initials: "JL",
+    name: "Jackson Lee",
+    review: "jackson.lee@email.com",
+    date: "2/01/2025",
+  },
+  {
+    initials: "IN",
+    name: "Isabella Nguyen",
+    review: "Your attention to detail and commitment to delivering high-quality results are truly remarkable. It’s inspiring to see how you approach challenges with such precision and dedication, ensuring every aspect of your work is executed flawlessly. Your efforts set a benchmark for excellence that motivates everyone around you",
+    date: "19/11/2024",
+  },
+  {
+    initials: "WK",
+    name: "William Kim",
+    review: "will@email.com",
+    date: "3/11/2024",
+  },
+  {
+    initials: "SD",
+    name: "Sofia Davis",
+    review: "sofia.davis@email.com",
+    date: "2/10/2024",
+  },
+];
+export type Review = {
+  initials: string;
+  name: string;
+  review: string;
+  date: string;
+};
 export type User = {
   id: number;
   name: string;
@@ -11,84 +135,84 @@ export type User = {
 export const users: User[] = [
   {
     id: 1,
-    name: 'Candice Schiner',
-    company: 'Dell',
-    role: 'Frontend Developer',
+    name: "Candice Schiner",
+    company: "Dell",
+    role: "Frontend Developer",
     verified: false,
-    status: 'Active'
+    status: "Active",
   },
   {
     id: 2,
-    name: 'John Doe',
-    company: 'TechCorp',
-    role: 'Backend Developer',
+    name: "John Doe",
+    company: "TechCorp",
+    role: "Backend Developer",
     verified: true,
-    status: 'Active'
+    status: "Active",
   },
   {
     id: 3,
-    name: 'Alice Johnson',
-    company: 'WebTech',
-    role: 'UI Designer',
+    name: "Alice Johnson",
+    company: "WebTech",
+    role: "UI Designer",
     verified: true,
-    status: 'Active'
+    status: "Active",
   },
   {
     id: 4,
-    name: 'David Smith',
-    company: 'Innovate Inc.',
-    role: 'Fullstack Developer',
+    name: "David Smith",
+    company: "Innovate Inc.",
+    role: "Fullstack Developer",
     verified: false,
-    status: 'Inactive'
+    status: "Inactive",
   },
   {
     id: 5,
-    name: 'Emma Wilson',
-    company: 'TechGuru',
-    role: 'Product Manager',
+    name: "Emma Wilson",
+    company: "TechGuru",
+    role: "Product Manager",
     verified: true,
-    status: 'Active'
+    status: "Active",
   },
   {
     id: 6,
-    name: 'James Brown',
-    company: 'CodeGenius',
-    role: 'QA Engineer',
+    name: "James Brown",
+    company: "CodeGenius",
+    role: "QA Engineer",
     verified: false,
-    status: 'Active'
+    status: "Active",
   },
   {
     id: 7,
-    name: 'Laura White',
-    company: 'SoftWorks',
-    role: 'UX Designer',
+    name: "Laura White",
+    company: "SoftWorks",
+    role: "UX Designer",
     verified: true,
-    status: 'Active'
+    status: "Active",
   },
   {
     id: 8,
-    name: 'Michael Lee',
-    company: 'DevCraft',
-    role: 'DevOps Engineer',
+    name: "Michael Lee",
+    company: "DevCraft",
+    role: "DevOps Engineer",
     verified: false,
-    status: 'Active'
+    status: "Active",
   },
   {
     id: 9,
-    name: 'Olivia Green',
-    company: 'WebSolutions',
-    role: 'Frontend Developer',
+    name: "Olivia Green",
+    company: "WebSolutions",
+    role: "Frontend Developer",
     verified: true,
-    status: 'Active'
+    status: "Active",
   },
   {
     id: 10,
-    name: 'Robert Taylor',
-    company: 'DataTech',
-    role: 'Data Analyst',
+    name: "Robert Taylor",
+    company: "DataTech",
+    role: "Data Analyst",
     verified: false,
-    status: 'Active'
-  }
+    status: "Active",
+  },
 ];
 
 export type Employee = {
@@ -123,56 +247,56 @@ export type Product = {
 
 export const navItems: NavItem[] = [
   {
-    title: 'Dashboard',
-    url: '/dashboard/overview',
-    icon: 'dashboard',
+    title: "Dashboard",
+    url: "/dashboard/overview",
+    icon: "dashboard",
     isActive: false,
-    shortcut: ['d', 'd'],
-    items: [] // Empty array as there are no child items for Dashboard
+    shortcut: ["d", "d"],
+    items: [], // Empty array as there are no child items for Dashboard
   },
   {
-    title: 'Employee',
-    url: '/dashboard/employee',
-    icon: 'user',
-    shortcut: ['e', 'e'],
+    title: "Employee",
+    url: "/dashboard/employee",
+    icon: "user",
+    shortcut: ["e", "e"],
     isActive: false,
-    items: [] // No child items
+    items: [], // No child items
   },
   {
-    title: 'Product',
-    url: '/dashboard/product',
-    icon: 'product',
-    shortcut: ['p', 'p'],
+    title: "Product",
+    url: "/dashboard/product",
+    icon: "product",
+    shortcut: ["p", "p"],
     isActive: false,
-    items: [] // No child items
+    items: [], // No child items
   },
   {
-    title: 'Account',
-    url: '#', // Placeholder as there is no direct link for the parent
-    icon: 'billing',
+    title: "Account",
+    url: "#", // Placeholder as there is no direct link for the parent
+    icon: "billing",
     isActive: true,
 
     items: [
       {
-        title: 'Profile',
-        url: '/dashboard/profile',
-        icon: 'userPen',
-        shortcut: ['m', 'm']
+        title: "Profile",
+        url: "/dashboard/profile",
+        icon: "userPen",
+        shortcut: ["m", "m"],
       },
       {
-        title: 'Login',
-        shortcut: ['l', 'l'],
-        url: '/',
-        icon: 'login'
-      }
-    ]
+        title: "Login",
+        shortcut: ["l", "l"],
+        url: "/",
+        icon: "login",
+      },
+    ],
   },
   {
-    title: 'Kanban',
-    url: '/dashboard/kanban',
-    icon: 'kanban',
-    shortcut: ['k', 'k'],
+    title: "Kanban",
+    url: "/dashboard/kanban",
+    icon: "kanban",
+    shortcut: ["k", "k"],
     isActive: false,
-    items: [] // No child items
-  }
+    items: [], // No child items
+  },
 ];

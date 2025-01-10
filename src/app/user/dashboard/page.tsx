@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import PageTitle from "@/components/PageTitle";
-import Link from 'next/link';
+// import Link from 'next/link';
 
 const listings = [
   {

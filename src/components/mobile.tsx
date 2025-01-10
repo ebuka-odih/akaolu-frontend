@@ -56,7 +56,7 @@ const data = [
     }
   ];
 
-export default function BarChart({}: Props) {
+export default function Mobile({}: Props) {
   return (
     <ResponsiveContainer width={'100%'} height={350}>
         <BarGraph data={data}>
@@ -74,7 +74,7 @@ export default function BarChart({}: Props) {
           fontSize={12}
           tickFormatter={(value) => `$${value}`}
         />
-        <Bar dataKey={"total"} radius={[4, 4, 0, 0]} />
+        <Bar dataKey={"total"} fill="white" radius={[4, 4, 0, 0]} />
         </BarGraph>
     </ResponsiveContainer>
   )

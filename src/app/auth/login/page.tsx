@@ -27,7 +27,7 @@ export default function Login() {
         if (response?.data) {
           router.push('/user/dashboard');
         }
-      } catch (err) {
+      } catch {
         console.log('User not logged in, staying on login page.');
       }
     };

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {Search} from "lucide-react";
+import Image from "next/image";
 
 const MobileMenuWithSearch = () => {
   const [isLocationSearchVisible, setIsLocationSearchVisible] = useState(false);
@@ -17,8 +18,8 @@ const MobileMenuWithSearch = () => {
       <div className="container mx-auto flex items-center justify-between px-4">
         {/* Logo */}
         <div className="flex items-center space-x-2">
-          <img
-            src="/logo.svg"
+          <Image width={24}
+height={24}            src="/logo.svg"
             alt="Logo"
             className="h-6 w-6"
           />

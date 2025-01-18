@@ -8,7 +8,7 @@ import Link from "next/link";
 import { FaUser, FaEnvelope, FaLock, FaSpinner } from "react-icons/fa";
 import { Terminal } from "lucide-react"
 
-import { Alert, AlertDescription, AlertTitle,} from "@/components/ui/alert"
+// import { Alert, AlertDescription, AlertTitle,} from "@/components/ui/alert"
 
 interface AuthFormProps {
   mode: 'login' | 'register';

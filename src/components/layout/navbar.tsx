@@ -2,8 +2,8 @@
 
 import Link from 'next/link';
 import { Store } from "lucide-react";
-import logoImg from "@/public/images/2.png";
-import Image from "next/image";
+// import logoImg from "@/public/images/2.png";
+// import Image from "next/image";
 
 export default function Navbar() {
   return (

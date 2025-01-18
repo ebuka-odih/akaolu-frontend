@@ -5,13 +5,14 @@ import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/componen
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import router from "next/router";
+// import router from "next/router";
 import Link from 'next/link'
 // import { useRouter } from 'next/navigation'
 
 
 // Step 1 Component
-// @ts-ignore
+/* // @ts-ignore 
+*/
 const StepOne = ({ nextStep }) => (
   <>
     <CardContent>
@@ -53,7 +54,7 @@ const StepOne = ({ nextStep }) => (
 );
 
 // Step 2 Component
-// @ts-ignore
+// ts-expect-error
 const StepTwo = ({ previousStep, nextStep }) => (
   <>
     <CardContent>
@@ -78,7 +79,7 @@ const StepTwo = ({ previousStep, nextStep }) => (
 );
 
 // Step 3 Component
-// @ts-ignore
+// ts-expect-error
 const StepThree = ({ previousStep, nextStep }) => (
   <>
     <CardContent>
@@ -117,7 +118,7 @@ const StepThree = ({ previousStep, nextStep }) => (
 );
 
 // Step 4 Component
-// @ts-ignore
+// ts-expect-error
 const StepFour = ({ previousStep, nextStep }) => (
   <>
     <CardContent>
@@ -157,7 +158,7 @@ const StepFour = ({ previousStep, nextStep }) => (
 );
 
 // Step 5 Component
-// @ts-ignore
+// ts-expect-error
 const StepFive = ({previousStep, nextStep}) => (
     <>
       <CardContent>
@@ -180,7 +181,7 @@ const StepFive = ({previousStep, nextStep}) => (
 );
 
 // Step 6 Component
-// @ts-ignore
+// ts-expect-error
 const StepSix = ({previousStep, nextStep}) => (
   <>
     <CardContent>
@@ -201,7 +202,7 @@ const StepSix = ({previousStep, nextStep}) => (
   </>
 );
 
-// @ts-ignore
+// ts-expect-error
 const StepSeven = ({ previousStep }) => (
   <>
     <CardContent>

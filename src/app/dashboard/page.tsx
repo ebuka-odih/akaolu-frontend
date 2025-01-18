@@ -26,7 +26,7 @@ const page = () => {
         <Navbar />
 
         {/* Content */}
-        <div className="w-full py-4 overflow-x-hidden p-4">
+        <div className="w-full py-4 overflow-x-hidden p-4 ">
           <div>
             <div className="flex items-center font-semi justify-between w-full  bg-gray-200- dark:bg-gray-950">
               <div className="text-xl md:text-2xl">

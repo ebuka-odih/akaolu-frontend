@@ -5,7 +5,7 @@ import "./globals.css";
 
 import { useEffect } from 'react';
 import { usePathname } from 'next/navigation';
-// @ts-ignore
+//   /* @ts-ignore */
 import NProgress from 'nprogress';
 import '@/app/styles/nprogress.css'; // Import the CSS
 import { ThemeProvider } from "@/components/theme-provider";

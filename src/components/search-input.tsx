@@ -1,7 +1,7 @@
 'use client';
-import { Input } from '@/components/ui/input';
+// import { Input } from '@/components/ui/input';
 import { useKBar } from 'kbar';
-import { ArrowRight, Search } from 'lucide-react';
+import { Search } from 'lucide-react';
 import { Button } from './ui/button';
 
 export default function SearchInput() {

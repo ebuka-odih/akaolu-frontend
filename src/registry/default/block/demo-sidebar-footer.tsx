@@ -1,6 +1,6 @@
 "use client"
 
-import { ChevronDown, ChevronUp, User2 } from "lucide-react"
+import { ChevronUp, } from "lucide-react"
 
 import {
   DropdownMenu,

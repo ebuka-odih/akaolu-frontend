@@ -2,7 +2,7 @@
 
 import * as React from "react"
 import { TrendingUp } from "lucide-react"
-import { Label, Pie, PieChart } from "recharts"
+import { Label, Pie, PieChart as RechartsPieChart } from "recharts"
 
 import {
   Card,
@@ -18,6 +18,7 @@ import {
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart"
+
 const chartData = [
   { browser: "chrome", visitors: 275, fill: "var(--color-chrome)" },
   { browser: "safari", visitors: 200, fill: "var(--color-safari)" },
@@ -52,7 +53,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-const pieChart = () =>  {
+const PieChart = () => {
   const totalVisitors = React.useMemo(() => {
     return chartData.reduce((acc, curr) => acc + curr.visitors, 0)
   }, [])
@@ -68,7 +69,7 @@ const pieChart = () =>  {
           config={chartConfig}
           className="mx-auto aspect-square"
         >
-          <PieChart>
+          <RechartsPieChart>
             <ChartTooltip
               cursor={false}
               content={<ChartTooltipContent hideLabel />}
@@ -110,7 +111,7 @@ const pieChart = () =>  {
                 }}
               />
             </Pie>
-          </PieChart>
+          </RechartsPieChart>
         </ChartContainer>
       </CardContent>
       <CardFooter className="flex-col gap-2 text-sm">
@@ -125,5 +126,4 @@ const pieChart = () =>  {
   )
 }
 
-export default pieChart
-
+export default PieChart

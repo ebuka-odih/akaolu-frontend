@@ -3,8 +3,7 @@
 import PageTitle from "@/components/PageTitle";
 import { Button } from "@/components/ui/button";
 import { LucideEye, LucideMapPin } from "lucide-react";
-
-
+import Image from "next/image";
 const listings = [
   {
     id: 1,
@@ -53,7 +52,7 @@ export default function UserDashboard() {
                 >
                   {/* Image Section */}
                   <div className="w-full sm:w-1/2">
-                    <img
+                    <Image
                         src={listing.image}
                         alt={listing.title}
                         className="h-full w-full object-cover"
@@ -65,7 +64,7 @@ export default function UserDashboard() {
                     <div>
                       <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-400 mb-2">
                         <div className="flex items-center gap-1">
-                          <img
+                          <Image
                               src={listing.user.avatar}
                               alt={listing.user.name}
                               className="w-5 h-5 rounded-full"

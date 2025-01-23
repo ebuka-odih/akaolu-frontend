@@ -65,7 +65,7 @@ export default function AppSidebar() {
             <SidebarGroupLabel>Projects</SidebarGroupLabel>
             <SidebarGroupContent>
               <SidebarMenu>
-                {projects.map((project, index) => (
+                {projects.map((project) => (
                   <SidebarMenuItem key={project.name}>
                     <SidebarMenuButton
                       asChild

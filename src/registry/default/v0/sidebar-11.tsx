@@ -32,6 +32,9 @@ import {
   SidebarTrigger,
 } from "@/registry/default/ui/sidebar";
 
+// Updated TreeNode type
+type TreeNode = string | [string, Array<TreeNode>];
+
 // Sample data representing changes and file tree
 const data = {
   changes: [
@@ -153,7 +156,7 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   );
 }
 
-function Tree({ item }: { item: string | [string, ...any[]] }) {
+function Tree({ item }: { item: TreeNode }) {
   const [name, ...items] = Array.isArray(item) ? item : [item];
 
   if (!items.length) {

@@ -6,9 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { FaUser, FaEnvelope, FaLock, FaSpinner } from "react-icons/fa";
-import { Terminal } from "lucide-react"
-
-// import { Alert, AlertDescription, AlertTitle,} from "@/components/ui/alert"
+import { Terminal } from "lucide-react";
 
 interface AuthFormProps {
   mode: 'login' | 'register';
@@ -50,8 +48,12 @@ export default function AuthForm({ mode }: AuthFormProps) {
       const data = await response.json();
       console.log(`${mode} successful`, data);
       window.location.href = '/dashboard';
-    } catch (err: any) {
-      setError(err.message || 'An error occurred. Please try again.');
+    } catch (err: unknown) {
+      if (err instanceof Error) {
+        setError(err.message || 'An error occurred. Please try again.');
+      } else {
+        setError('An unexpected error occurred.');
+      }
     } finally {
       setLoading(false);
     }
@@ -60,21 +62,20 @@ export default function AuthForm({ mode }: AuthFormProps) {
   return (
     <div className="bg-white shadow-md rounded-lg p-3">
       <form onSubmit={handleSubmit} className="grid gap-6">
-          {error &&
-              <div className="flex items-start bg-red-100 text-red-700 rounded-lg p-4 mb-4 border border-red-200">
-                  <Terminal className="h-6 w-6 mr-3 text-red-700"/>
-                  <div>
-                      <p className="font-bold">Heads up!</p>
-                      <p className="text-sm">{error}</p>
-                  </div>
-              </div>
-          }
+        {error && (
+          <div className="flex items-start bg-red-100 text-red-700 rounded-lg p-4 mb-4 border border-red-200">
+            <Terminal className="h-6 w-6 mr-3 text-red-700" />
+            <div>
+              <p className="font-bold">Heads up!</p>
+              <p className="text-sm">{error}</p>
+            </div>
+          </div>
+        )}
 
-
-          {mode === 'register' && (
-              <div className="flex flex-col space-y-1.5">
-                  <Label htmlFor="name">Name</Label>
-                  <div className="relative">
+        {mode === 'register' && (
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="name">Name</Label>
+            <div className="relative">
               <span className="absolute inset-y-0 left-3 flex items-center text-gray-500">
                 <FaUser />
               </span>
@@ -84,7 +85,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
                 placeholder="Full Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="pl-10 "
+                className="pl-10"
                 required
               />
             </div>
@@ -103,7 +104,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
               placeholder="Your Email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="pl-10 "
+              className="pl-10"
               required
             />
           </div>
@@ -146,14 +147,12 @@ export default function AuthForm({ mode }: AuthFormProps) {
                 placeholder="Confirm Your Password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="pl-10 "
+                className="pl-10"
                 required
               />
             </div>
           </div>
         )}
-
-
 
         <Button
           type="submit"

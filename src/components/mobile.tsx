@@ -3,7 +3,7 @@ import React from 'react'
 import { Bar, ResponsiveContainer } from 'recharts'
 import { BarChart as BarGraph, XAxis, YAxis } from 'recharts'
 
-type Props = {}
+type Props = object;
 
 const data = [
     {

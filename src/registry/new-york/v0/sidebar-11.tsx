@@ -1,5 +1,5 @@
-import * as React from "react"
-import { ChevronRight, File, Folder } from "lucide-react"
+import * as React from "react";
+import { ChevronRight, File, Folder } from "lucide-react";
 
 import {
   Breadcrumb,
@@ -8,13 +8,13 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/registry/new-york/ui/breadcrumb"
+} from "@/registry/new-york/ui/breadcrumb";
 import {
   Collapsible,
   CollapsibleContent,
   CollapsibleTrigger,
-} from "@/registry/new-york/ui/collapsible"
-import { Separator } from "@/registry/new-york/ui/separator"
+} from "@/registry/new-york/ui/collapsible";
+import { Separator } from "@/registry/new-york/ui/separator";
 import {
   Sidebar,
   SidebarContent,
@@ -30,34 +30,22 @@ import {
   SidebarProvider,
   SidebarRail,
   SidebarTrigger,
-} from "@/registry/new-york/ui/sidebar"
+} from "@/registry/new-york/ui/sidebar";
 
-// This is sample data.
+// Sample data for changes and file tree structure.
 const data = {
   changes: [
-    {
-      file: "README.md",
-      state: "M",
-    },
-    {
-      file: "api/hello/route.ts",
-      state: "U",
-    },
-    {
-      file: "app/layout.tsx",
-      state: "M",
-    },
+    { file: "README.md", state: "M" },
+    { file: "api/hello/route.ts", state: "U" },
+    { file: "app/layout.tsx", state: "M" },
   ],
   tree: [
     [
       "app",
-      [
-        "api",
-        ["hello", ["route.ts"]],
-        "page.tsx",
-        "layout.tsx",
-        ["blog", ["page.tsx"]],
-      ],
+      ["api", ["hello", ["route.ts"]]],
+      "page.tsx",
+      "layout.tsx",
+      ["blog", ["page.tsx"]],
     ],
     [
       "components",
@@ -74,11 +62,10 @@ const data = {
     "package.json",
     "README.md",
   ],
-}
+};
 
-export const iframeHeight = "800px"
-
-export const description = "A sidebar with a collapsible file tree."
+export const iframeHeight = "800px";
+export const description = "A sidebar with a collapsible file tree.";
 
 export default function Page() {
   return (
@@ -114,7 +101,7 @@ export default function Page() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }
 
 function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
@@ -150,12 +137,18 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarContent>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }
 
-function Tree({ item }: { item: string | any[] }) {
-  const [name, ...items] = Array.isArray(item) ? item : [item]
+// Recursive type to allow any depth of nested arrays.
+type TreeProps = {
+  item: string | [string, (string | [string, (string | string[])[]])[]][];
+};
 
+function Tree({ item }: TreeProps) {
+  const [name, ...items] = Array.isArray(item) ? item : [item];
+
+  // If the item has no nested children, it's a file.
   if (!items.length) {
     return (
       <SidebarMenuButton
@@ -165,9 +158,10 @@ function Tree({ item }: { item: string | any[] }) {
         <File />
         {name}
       </SidebarMenuButton>
-    )
+    );
   }
 
+  // If the item has children, it's a folder, create a collapsible tree structure.
   return (
     <SidebarMenuItem>
       <Collapsible
@@ -190,5 +184,5 @@ function Tree({ item }: { item: string | any[] }) {
         </CollapsibleContent>
       </Collapsible>
     </SidebarMenuItem>
-  )
+  );
 }

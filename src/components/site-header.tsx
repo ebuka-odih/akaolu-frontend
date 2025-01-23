@@ -1,8 +1,5 @@
-import Link from "next/link"
-
-import { MainNav } from "@/components/main-nav"
-import { MobileNav } from "@/components/mobile-nav"
-import { ModeSwitcher } from "@/components/mode-switcher"
+import { MobileNav } from "@/components/mobile-nav";
+import { ModeSwitcher } from "@/components/mode-switcher";
 
 export function SiteHeader() {
   return (
@@ -11,13 +8,11 @@ export function SiteHeader() {
         {/*<MainNav />*/}
         <MobileNav />
         <div className="flex flex-1 items-center justify-between gap-2 md:justify-end">
-
           <nav className="flex items-center gap-0.5">
-
             <ModeSwitcher />
           </nav>
         </div>
       </div>
     </header>
-  )
+  );
 }

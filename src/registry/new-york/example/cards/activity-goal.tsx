@@ -1,12 +1,10 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Minus, Plus } from "lucide-react"
-import { useTheme } from "next-themes"
-import { Bar, BarChart, ResponsiveContainer } from "recharts"
+import * as React from "react";
+import { Minus, Plus } from "lucide-react";
+import { Bar, BarChart } from "recharts";
 
-import { useConfig } from "@/hooks/use-config"
-import { Button } from "@/registry/new-york/ui/button"
+import { Button } from "@/registry/new-york/ui/button";
 import {
   Card,
   CardContent,
@@ -14,9 +12,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york/ui/card"
-import { ChartConfig, ChartContainer } from "@/registry/new-york/ui/chart"
-import { baseColors } from "@/registry/registry-base-colors"
+} from "@/registry/new-york/ui/card";
+import { ChartConfig, ChartContainer } from "@/registry/new-york/ui/chart";
 
 const data = [
   {
@@ -58,7 +55,7 @@ const data = [
   {
     goal: 349,
   },
-]
+];
 
 const chartConfig = {
   goal: {
@@ -68,13 +65,13 @@ const chartConfig = {
       dark: "white",
     },
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export function CardsActivityGoal() {
-  const [goal, setGoal] = React.useState(350)
+  const [goal, setGoal] = React.useState(350);
 
   function onClick(adjustment: number) {
-    setGoal(Math.max(200, Math.min(400, goal + adjustment)))
+    setGoal(Math.max(200, Math.min(400, goal + adjustment)));
   }
 
   return (
@@ -127,5 +124,5 @@ export function CardsActivityGoal() {
         <Button className="w-full">Set Goal</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }

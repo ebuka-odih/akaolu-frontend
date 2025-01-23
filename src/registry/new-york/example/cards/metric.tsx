@@ -1,9 +1,7 @@
 "use client"
 
-import { useTheme } from "next-themes"
-import { Line, LineChart, ResponsiveContainer, Tooltip } from "recharts"
+import { Line} from "recharts"
 
-import { useConfig } from "@/hooks/use-config"
 import {
   Card,
   CardContent,
@@ -16,8 +14,7 @@ import {
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/new-york/ui/chart"
-import { baseColors } from "@/registry/registry-base-colors"
+} from "@/registry/new-york/ui/chart"registry-base-colors"
 
 const data = [
   {

@@ -1,13 +1,7 @@
-"use client"
+"use client";
 
-import { TrendingUp } from "lucide-react"
-import {
-  PolarAngleAxis,
-  PolarGrid,
-  PolarRadiusAxis,
-  Radar,
-  RadarChart,
-} from "recharts"
+import { TrendingUp } from "lucide-react";
+import { PolarGrid, PolarRadiusAxis, Radar, RadarChart } from "recharts";
 
 import {
   Card,
@@ -16,15 +10,15 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/registry/new-york/ui/card"
+} from "@/registry/new-york/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
-} from "@/registry/new-york/ui/chart"
+} from "@/registry/new-york/ui/chart";
 
-export const description = "A radar chart with a radius axis"
+export const description = "A radar chart with a radius axis";
 
 const chartData = [
   { month: "January", desktop: 186, mobile: 80 },
@@ -33,7 +27,7 @@ const chartData = [
   { month: "April", desktop: 73, mobile: 190 },
   { month: "May", desktop: 209, mobile: 130 },
   { month: "June", desktop: 214, mobile: 140 },
-]
+];
 
 const chartConfig = {
   desktop: {
@@ -44,7 +38,7 @@ const chartConfig = {
     label: "Mobile",
     color: "hsl(var(--chart-2))",
   },
-} satisfies ChartConfig
+} satisfies ChartConfig;
 
 export default function Component() {
   return (
@@ -92,5 +86,5 @@ export default function Component() {
         </div>
       </CardFooter>
     </Card>
-  )
+  );
 }

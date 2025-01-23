@@ -1,71 +1,142 @@
-import * as React from "react"
-import { Plus } from "lucide-react"
+import * as React from "react";
+import { ChevronRight, File, Folder } from "lucide-react";
 
-import { Calendars } from "@/registry/default/block/sidebar-15/components/calendars"
-import { DatePicker } from "@/registry/default/block/sidebar-15/components/date-picker"
-import { NavUser } from "@/registry/default/block/sidebar-15/components/nav-user"
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/registry/default/ui/collapsible";
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
+  SidebarGroup,
+  SidebarGroupContent,
+  SidebarGroupLabel,
   SidebarMenu,
+  SidebarMenuBadge,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
   SidebarRail,
-  SidebarSeparator,
-} from "@/registry/default/ui/sidebar"
+} from "@/registry/default/ui/sidebar";
 
-// This is sample data.
+// Define the TreeItem type
+type TreeItem = string | [string, ...TreeItem[]];
+
+// Sample data
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  calendars: [
-    {
-      name: "My Calendars",
-      items: ["Personal", "Work", "Family"],
-    },
-    {
-      name: "Favorites",
-      items: ["Holidays", "Birthdays"],
-    },
-    {
-      name: "Other",
-      items: ["Travel", "Reminders", "Deadlines"],
-    },
+  changes: [
+    { file: "README.md", state: "M" },
+    { file: "api/hello/route.ts", state: "U" },
+    { file: "app/layout.tsx", state: "M" },
   ],
+  tree: [
+    [
+      "app",
+      [
+        "api",
+        ["hello", ["route.ts"]],
+        "page.tsx",
+        "layout.tsx",
+        ["blog", ["page.tsx"]],
+      ],
+    ],
+    [
+      "components",
+      ["ui", "button.tsx", "card.tsx"],
+      "header.tsx",
+      "footer.tsx",
+    ],
+    ["lib", ["util.ts"]],
+    ["public", "favicon.ico", "vercel.svg"],
+    ".eslintrc.json",
+    ".gitignore",
+    "next.config.js",
+    "tailwind.config.js",
+    "package.json",
+    "README.md",
+  ] as TreeItem[],
+};
+
+// Main Sidebar Component
+export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  return (
+    <Sidebar {...props}>
+      <SidebarContent>
+        {/* Changes Section */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Changes</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {data.changes.map((item, index) => (
+                <SidebarMenuItem key={index}>
+                  <SidebarMenuButton>
+                    <File />
+                    {item.file}
+                  </SidebarMenuButton>
+                  <SidebarMenuBadge>{item.state}</SidebarMenuBadge>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+
+        {/* Files Section */}
+        <SidebarGroup>
+          <SidebarGroupLabel>Files</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {data.tree.map((item, index) => (
+                <Tree key={index} item={item} />
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+      </SidebarContent>
+      <SidebarRail />
+    </Sidebar>
+  );
 }
 
-export function SidebarRight({
-  ...props
-}: React.ComponentProps<typeof Sidebar>) {
+// Tree Component
+function Tree({ item }: { item: TreeItem }) {
+  const [name, ...items] = Array.isArray(item) ? item : [item];
+
+  // If it's a file
+  if (!items.length) {
+    return (
+      <SidebarMenuButton
+        isActive={name === "button.tsx"} // Example of active state
+        className="data-[active=true]:bg-transparent"
+      >
+        <File />
+        {name}
+      </SidebarMenuButton>
+    );
+  }
+
+  // If it's a folder
   return (
-    <Sidebar
-      collapsible="none"
-      className="sticky hidden lg:flex top-0 h-svh border-l"
-      {...props}
-    >
-      <SidebarHeader className="h-16 border-b border-sidebar-border">
-        <NavUser user={data.user} />
-      </SidebarHeader>
-      <SidebarContent>
-        <DatePicker />
-        <SidebarSeparator className="mx-0" />
-        <Calendars calendars={data.calendars} />
-      </SidebarContent>
-      <SidebarFooter>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton>
-              <Plus />
-              <span>New Calendar</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
-      </SidebarFooter>
-    </Sidebar>
-  )
+    <SidebarMenuItem>
+      <Collapsible
+        className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
+        defaultOpen={name === "components" || name === "ui"}
+      >
+        <CollapsibleTrigger asChild>
+          <SidebarMenuButton>
+            <ChevronRight className="transition-transform" />
+            <Folder />
+            {name}
+          </SidebarMenuButton>
+        </CollapsibleTrigger>
+        <CollapsibleContent>
+          <SidebarMenuSub>
+            {items.map((subItem, index) => (
+              <Tree key={index} item={subItem} />
+            ))}
+          </SidebarMenuSub>
+        </CollapsibleContent>
+      </Collapsible>
+    </SidebarMenuItem>
+  );
 }

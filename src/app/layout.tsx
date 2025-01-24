@@ -14,7 +14,7 @@ export default function RootLayout({children,}: Readonly<{ children: React.React
     const pathname = usePathname();
 
       useEffect(() => {
-        NProgress.configure({ showSpinner: false, speed: 700 });
+        NProgress.configure({ showSpinner: false});
 
         NProgress.start();
         NProgress.done();

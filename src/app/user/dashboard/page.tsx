@@ -1,12 +1,17 @@
-import React from 'react'
+// src/app/user/dashboard/page.tsx
 
-const page = () => {
+import React from 'react';
+
+const DashboardPage: React.FC = () => {
   return (
-    <div>page</div>
-  )
-}
+    <div>
+      <h1>Dashboard</h1>
+      {/* Your dashboard content */}
+    </div>
+  );
+};
 
-export default page
+export default DashboardPage;
 
 // 'use client';
 

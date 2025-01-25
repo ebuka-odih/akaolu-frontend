@@ -32,7 +32,9 @@ import {
   SidebarTrigger,
 } from "@/registry/new-york/ui/sidebar";
 
-// Sample data for changes and file tree structure.
+// Adjusted the FileTree type to allow broader compatibility.
+type FileTree = string | [string, (string | FileTree)[]];
+
 const data = {
   changes: [
     { file: "README.md", state: "M" },
@@ -40,54 +42,48 @@ const data = {
     { file: "app/layout.tsx", state: "M" },
   ],
   tree: [
-    [
-      "app",
-      ["api", ["hello", ["route.ts"]]],
-      "page.tsx",
-      "layout.tsx",
-      ["blog", ["page.tsx"]],
-    ],
+    ["app", [["api", [["hello", [["route.ts"]]]]], ["page.tsx"], ["layout.tsx"]]],
     [
       "components",
-      ["ui", "button.tsx", "card.tsx"],
-      "header.tsx",
-      "footer.tsx",
+      [["ui", [["button.tsx"], ["card.tsx"]]], ["header.tsx"], ["footer.tsx"]],
     ],
-    ["lib", ["util.ts"]],
-    ["public", "favicon.ico", "vercel.svg"],
-    ".eslintrc.json",
-    ".gitignore",
-    "next.config.js",
-    "tailwind.config.js",
-    "package.json",
-    "README.md",
-  ],
+    ["lib", [["util.ts"]]],
+    ["public", [["favicon.ico"], ["vercel.svg"]]],
+    [".eslintrc.json"],
+    [".gitignore"],
+    ["next.config.js"],
+    ["tailwind.config.js"],
+    ["package.json"],
+    ["README.md"],
+  ] as unknown as FileTree[], // Explicitly cast to FileTree[] for proper type inference.
 };
 
 export const iframeHeight = "800px";
 export const description = "A sidebar with a collapsible file tree.";
 
 export default function Page() {
+  const [currentPath, setCurrentPath] = React.useState<string[]>([]);
+
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <AppSidebar setCurrentPath={setCurrentPath} />
       <SidebarInset>
         <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>
             <BreadcrumbList>
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">components</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="#">ui</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>button.tsx</BreadcrumbPage>
-              </BreadcrumbItem>
+              {currentPath.map((crumb, index) => (
+                <BreadcrumbItem key={index}>
+                  <BreadcrumbLink href="#">{crumb}</BreadcrumbLink>
+                  {index < currentPath.length - 1 && <BreadcrumbSeparator />}
+                </BreadcrumbItem>
+              ))}
+              {currentPath.length > 0 && (
+                <BreadcrumbPage>
+                  {currentPath[currentPath.length - 1]}
+                </BreadcrumbPage>
+              )}
             </BreadcrumbList>
           </Breadcrumb>
         </header>
@@ -104,7 +100,12 @@ export default function Page() {
   );
 }
 
-function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+function AppSidebar({
+  setCurrentPath,
+  ...props
+}: React.ComponentProps<typeof Sidebar> & {
+  setCurrentPath: (path: string[]) => void;
+}) {
   return (
     <Sidebar {...props}>
       <SidebarContent>
@@ -129,7 +130,12 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroupContent>
             <SidebarMenu>
               {data.tree.map((item, index) => (
-                <Tree key={index} item={item} />
+                <Tree
+                  key={index}
+                  item={item}
+                  setCurrentPath={setCurrentPath}
+                  path={[]}
+                />
               ))}
             </SidebarMenu>
           </SidebarGroupContent>
@@ -140,33 +146,36 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   );
 }
 
-// Recursive type to allow any depth of nested arrays.
 type TreeProps = {
-  item: string | [string, (string | [string, (string | string[])[]])[]][];
+  item: FileTree;
+  setCurrentPath: (path: string[]) => void;
+  path: string[];
 };
 
-function Tree({ item }: TreeProps) {
-  const [name, ...items] = Array.isArray(item) ? item : [item];
+function Tree({ item, setCurrentPath, path }: TreeProps) {
+  if (typeof item === "string") {
+    const handleClick = () => {
+      setCurrentPath([...path, item]);
+    };
 
-  // If the item has no nested children, it's a file.
-  if (!items.length) {
     return (
       <SidebarMenuButton
-        isActive={name === "button.tsx"}
+        onClick={handleClick}
         className="data-[active=true]:bg-transparent"
       >
         <File />
-        {name}
+        {item}
       </SidebarMenuButton>
     );
   }
 
-  // If the item has children, it's a folder, create a collapsible tree structure.
+  const [name, children] = item;
+
   return (
     <SidebarMenuItem>
       <Collapsible
         className="group/collapsible [&[data-state=open]>button>svg:first-child]:rotate-90"
-        defaultOpen={name === "components" || name === "ui"}
+        defaultOpen={path.length < 2}
       >
         <CollapsibleTrigger asChild>
           <SidebarMenuButton>
@@ -177,8 +186,13 @@ function Tree({ item }: TreeProps) {
         </CollapsibleTrigger>
         <CollapsibleContent>
           <SidebarMenuSub>
-            {items.map((subItem, index) => (
-              <Tree key={index} item={subItem} />
+            {children.map((subItem, index) => (
+              <Tree
+                key={index}
+                item={subItem}
+                setCurrentPath={setCurrentPath}
+                path={[...path, name]}
+              />
             ))}
           </SidebarMenuSub>
         </CollapsibleContent>

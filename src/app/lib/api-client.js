@@ -1,3 +1,15 @@
+
+const apiClient = () => {
+  return (
+    <div>
+      
+    </div>
+  )
+}
+
+export default apiClient
+// 
+// 
 // import axios from 'axios';
 // import {apiEndpoints, BASE_API_URL} from './api-endpoints';
 //

@@ -1,25 +1,30 @@
-import { promises as fs } from "fs"
-import { tmpdir } from "os"
-import path from "path"
-import { Index } from "@/__registry__"
-import { Project, ScriptKind, SourceFile, SyntaxKind } from "ts-morph"
-import { z } from "zod"
+import { promises as fs } from "fs";
+import { tmpdir } from "os";
+import path from "path";
+import { Index } from "@/__registry__";
+import { Project, ScriptKind, SourceFile, SyntaxKind } from "ts-morph";
+import { z } from "zod";
 
-import { Style } from "@/registry/registry-styles"
-import { registryEntrySchema, registryItemFileSchema } from "@/registry/schema"
+import { Style } from "@/registry/registry-styles";
+import { registryEntrySchema, registryItemFileSchema } from "@/registry/schema";
 
-export const DEFAULT_REGISTRY_STYLE = "new-york" satisfies Style["name"]
+export const DEFAULT_REGISTRY_STYLE = "new-york" satisfies Style["name"];
 
 const memoizedIndex: typeof Index = Object.fromEntries(
-  Object.entries(Index).map(([style, items]) => [style, { ...items }])
-)
+  Object.entries(Index).map(([style, items]) => [
+    style,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    { ...(items as Record<string, any>) },
+  ])
+);
 
 export function getRegistryComponent(
   name: string,
   style: Style["name"] = DEFAULT_REGISTRY_STYLE
 ) {
-  return memoizedIndex[style][name]?.component
+  return memoizedIndex[style]?.[name]?.component;
 }
+
 
 export async function getRegistryItem(
   name: string,

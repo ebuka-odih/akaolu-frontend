@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 declare module 'nprogress' {
     const NProgress: {
       start: () => void;
@@ -6,5 +7,7 @@ declare module 'nprogress' {
     };
     export default NProgress;
   }
-
+  declare module "@/__registry__" {
+    export const Index: any;
+  }
   

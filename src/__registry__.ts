@@ -1,13 +1,22 @@
-// src/__registry__.ts
-
-// Example content for Index. You can modify this based on your data structure.
-export const Index: Record<string, Record<string, any>> = {
-    "new-york": {
-      item1: { name: "Item 1", description: "Description 1" },
-      item2: { name: "Item 2", description: "Description 2" },
-    },
+type RegistryItem = {
+    component: string; // Using string to represent text
+    name: string;
+    description?: string;
   };
   
-    // Add more entries as needed
-
+  type IndexType = {
+    [style: string]: {
+      [name: string]: RegistryItem;
+    };
+  };
+  
+  export const Index: IndexType = {
+    "new-york": {
+      Button: { name: "Button", component: "This is a Button" },
+      Card: { name: "Card", component: "This is a Card" },
+    },
+    "default-style": {
+      Button: { name: "Default Button", component: "This is the Default Button" },
+    },
+  };
   

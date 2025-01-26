@@ -1,4 +1,10 @@
-import { themeColorsToCssVariables } from "@/lib/charts"
+// Utility function to convert theme colors to CSS variables
+export function themeColorsToCssVariables(colors: Record<string, string>): Record<string, string> {
+  return Object.keys(colors).reduce((vars, key) => {
+    vars[`--${key}`] = colors[key]; // Convert each key to a CSS variable
+    return vars;
+  }, {} as Record<string, string>);
+}
 
 const _THEMES = [
   {
@@ -471,12 +477,13 @@ const _THEMES = [
   },
 ] as const
 
+// Map themes to include CSS variables
 export const THEMES = _THEMES.map((theme) => ({
   ...theme,
   cssVars: {
     light: themeColorsToCssVariables(theme.colors),
     dark: themeColorsToCssVariables(theme.colorsDark),
   },
-}))
+}));
 
 export type Theme = (typeof THEMES)[number]

@@ -1,30 +1,39 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link, { LinkProps } from "next/link"
-import { useRouter } from "next/navigation"
+import * as React from "react";
+import Link, { LinkProps } from "next/link";
+import { useRouter } from "next/navigation";
 
-import { docsConfig } from "@/config/docs"
-import { cn } from "@/lib/utils"
-import { useMetaColor } from "@/hooks/use-meta-color"
-import { Button } from "@/registry/new-york/ui/button"
+import { docsConfig } from "@/config/docs";
+import { cn } from "@/lib/utils";
+import { useMetaColor } from "@/hooks/use-meta-color";
+import { Button } from "@/registry/new-york/ui/button";
 import {
   Drawer,
   DrawerContent,
   DrawerTrigger,
-} from "@/registry/new-york/ui/drawer"
+} from "@/registry/new-york/ui/drawer";
+
+// Define the type for items in the navigation
+interface NavItem {
+  title: string;
+  href?: string;
+  disabled?: boolean;
+  label?: string;
+  items?: NavItem[];
+}
 
 export function MobileNav() {
-  const [open, setOpen] = React.useState(false)
-  const { setMetaColor, metaColor } = useMetaColor()
+  const [open, setOpen] = React.useState(false);
+  const { setMetaColor, metaColor } = useMetaColor();
 
   const onOpenChange = React.useCallback(
     (open: boolean) => {
-      setOpen(open)
-      setMetaColor(open ? "#09090b" : metaColor)
+      setOpen(open);
+      setMetaColor(open ? "#09090b" : metaColor);
     },
     [setMetaColor, metaColor]
-  )
+  );
 
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
@@ -54,7 +63,7 @@ export function MobileNav() {
         <div className="overflow-auto p-6">
           <div className="flex flex-col space-y-3">
             {docsConfig.mainNav?.map(
-              (item) =>
+              (item: NavItem) =>
                 item.href && (
                   <MobileLink
                     key={item.href}
@@ -67,28 +76,28 @@ export function MobileNav() {
             )}
           </div>
           <div className="flex flex-col space-y-2">
-            {docsConfig.sidebarNav.map((item, index) => (
+            {docsConfig.sidebarNav.map((item: NavItem, index: number) => (
               <div key={index} className="flex flex-col space-y-3 pt-6">
                 <h4 className="font-medium">{item.title}</h4>
                 {item?.items?.length &&
-                  item.items.map((item) => (
-                    <React.Fragment key={item.href}>
-                      {!item.disabled &&
-                        (item.href ? (
+                  item.items.map((subItem: NavItem) => (
+                    <React.Fragment key={subItem.href}>
+                      {!subItem.disabled &&
+                        (subItem.href ? (
                           <MobileLink
-                            href={item.href}
+                            href={subItem.href}
                             onOpenChange={setOpen}
                             className="text-muted-foreground"
                           >
-                            {item.title}
-                            {item.label && (
+                            {subItem.title}
+                            {subItem.label && (
                               <span className="ml-2 rounded-md bg-[#adfa1d] px-1.5 py-0.5 text-xs leading-none text-[#000000] no-underline group-hover:no-underline">
-                                {item.label}
+                                {subItem.label}
                               </span>
                             )}
                           </MobileLink>
                         ) : (
-                          item.title
+                          subItem.title
                         ))}
                     </React.Fragment>
                   ))}
@@ -98,13 +107,13 @@ export function MobileNav() {
         </div>
       </DrawerContent>
     </Drawer>
-  )
+  );
 }
 
 interface MobileLinkProps extends LinkProps {
-  onOpenChange?: (open: boolean) => void
-  children: React.ReactNode
-  className?: string
+  onOpenChange?: (open: boolean) => void;
+  children: React.ReactNode;
+  className?: string;
 }
 
 function MobileLink({
@@ -114,18 +123,18 @@ function MobileLink({
   children,
   ...props
 }: MobileLinkProps) {
-  const router = useRouter()
+  const router = useRouter();
   return (
     <Link
       href={href}
       onClick={() => {
-        router.push(href.toString())
-        onOpenChange?.(false)
+        router.push(href.toString());
+        onOpenChange?.(false);
       }}
       className={cn("text-base", className)}
       {...props}
     >
       {children}
     </Link>
-  )
+  );
 }

@@ -17,11 +17,5 @@ declare module "types/unist" {
       };
       [key: string]: unknown; // Allow other custom fields
     }
-  
-    /**
-     * Interface for the Unist tree structure.
-     * Extends UnistNode to represent the root of the tree.
-     */
-    export interface UnistTree extends UnistNode {}
   }
   

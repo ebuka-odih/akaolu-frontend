@@ -1,7 +1,4 @@
 declare module "types/unist" {
-    /**
-     * Interface for a generic Unist node.
-     */
     export interface UnistNode {
       type: string; // The type of the node (e.g., "element", "text")
       value?: string; // Optional value for text nodes
@@ -15,7 +12,12 @@ declare module "types/unist" {
         __pnpmCommand__?: string;
         __bunCommand__?: string;
       };
-      [key: string]: unknown; // Allow other custom fields
+      [key: string]: unknown; 
     }
-  }
+  
+  
+
+  export interface UnistTree extends UnistNode {
+    isRoot: boolean; // Mark the tree as the root node
+  }  }
   

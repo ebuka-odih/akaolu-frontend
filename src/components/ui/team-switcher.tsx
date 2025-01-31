@@ -162,7 +162,7 @@ export default function TeamSwitcher({
         <DialogHeader>
           <DialogTitle>Create team</DialogTitle>
           <DialogDescription>
-            Add a new team to manage products and customers.
+            Upload a new team to manage products and customers.
           </DialogDescription>
         </DialogHeader>
         <div>

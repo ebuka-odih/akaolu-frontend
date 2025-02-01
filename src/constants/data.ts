@@ -1,4 +1,5 @@
-import { NavItem } from "@/types";
+// import { NavItem } from "@/types";
+import { NavItem } from "@/config/types";
 
 export const config = {
   profile_picture: "/images/profile.jpg",

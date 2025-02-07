@@ -1,12 +1,12 @@
-"use client"
+"use client";
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 
-import { toast } from "@/registry/default/hooks/use-toast"
-import { Button } from "@/registry/default/ui/button"
-import { Checkbox } from "@/registry/default/ui/checkbox"
+import { toast } from "@/registry/default/hooks/use-toast";
+import { Button } from "@/registry/default/ui/button";
+import { Checkbox } from "@/registry/default/ui/checkbox";
 import {
   Form,
   FormControl,
@@ -15,48 +15,32 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from "@/registry/default/ui/form"
+} from "@/registry/default/ui/form";
 
+// Define sidebar items
 const items = [
-  {
-    id: "recents",
-    label: "Recents",
-  },
-  {
-    id: "home",
-    label: "Home",
-  },
-  {
-    id: "applications",
-    label: "Applications",
-  },
-  {
-    id: "desktop",
-    label: "Desktop",
-  },
-  {
-    id: "downloads",
-    label: "Downloads",
-  },
-  {
-    id: "documents",
-    label: "Documents",
-  },
-] as const
+  { id: "recents", label: "Recents" },
+  { id: "home", label: "Home" },
+  { id: "applications", label: "Applications" },
+  { id: "desktop", label: "Desktop" },
+  { id: "downloads", label: "Downloads" },
+  { id: "documents", label: "Documents" },
+] as const;
 
+// Define form schema using Zod
 const FormSchema = z.object({
-  items: z.array(z.string()).refine((value) => value.some((item) => item), {
-    message: "You have to select at least one item.",
-  }),
-})
+  items: z
+    .array(z.string())
+    .nonempty({ message: "You have to select at least one item." }),
+});
 
 export default function CheckboxReactHookFormMultiple() {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      items: ["recents", "home"],
+      items: ["recents", "home"], // Default checked items
     },
-  })
+  });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
     toast({
@@ -66,7 +50,7 @@ export default function CheckboxReactHookFormMultiple() {
           <code className="text-white">{JSON.stringify(data, null, 2)}</code>
         </pre>
       ),
-    })
+    });
   }
 
   return (
@@ -75,7 +59,7 @@ export default function CheckboxReactHookFormMultiple() {
         <FormField
           control={form.control}
           name="items"
-          render={() => (
+          render={({ field }) => (
             <FormItem>
               <div className="mb-4">
                 <FormLabel className="text-base">Sidebar</FormLabel>
@@ -83,39 +67,30 @@ export default function CheckboxReactHookFormMultiple() {
                   Select the items you want to display in the sidebar.
                 </FormDescription>
               </div>
-              {items.map((item) => (
-                <FormField
-                  key={item.id}
-                  control={form.control}
-                  name="items"
-                  render={({ field }) => {
-                    return (
-                      <FormItem
-                        key={item.id}
-                        className="flex flex-row items-start space-x-3 space-y-0"
-                      >
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value?.includes(item.id)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, item.id])
-                                : field.onChange(
-                                    field.value?.filter(
-                                      (value) => value !== item.id
-                                    )
-                                  )
-                            }}
-                          />
-                        </FormControl>
-                        <FormLabel className="font-normal">
-                          {item.label}
-                        </FormLabel>
-                      </FormItem>
-                    )
-                  }}
-                />
-              ))}
+              {items.map((item) => {
+                const isChecked = field.value?.includes(item.id);
+
+                return (
+                  <div
+                    key={item.id}
+                    className="flex flex-row items-start space-x-3 space-y-0"
+                  >
+                    <FormControl>
+                      <Checkbox
+                        checked={isChecked}
+                        onCheckedChange={(checked: boolean) => {
+                          field.onChange(
+                            checked
+                              ? [...field.value, item.id]
+                              : field.value.filter((value) => value !== item.id)
+                          );
+                        }}
+                      />
+                    </FormControl>
+                    <FormLabel className="font-normal">{item.label}</FormLabel>
+                  </div>
+                );
+              })}
               <FormMessage />
             </FormItem>
           )}
@@ -123,5 +98,5 @@ export default function CheckboxReactHookFormMultiple() {
         <Button type="submit">Submit</Button>
       </form>
     </Form>
-  )
+  );
 }

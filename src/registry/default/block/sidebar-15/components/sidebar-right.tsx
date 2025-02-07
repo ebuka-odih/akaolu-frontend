@@ -59,7 +59,9 @@ const data = {
 };
 
 // Main Sidebar Component
-export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function SidebarRight({
+  ...props
+}: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarContent>

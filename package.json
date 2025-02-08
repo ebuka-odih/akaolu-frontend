@@ -38,6 +38,7 @@
     "cmdk": "^0.1.7",
     "date-fns": "^3.6.0",
     "embla-carousel-autoplay": "^8.5.2",
+    "embla-carousel-react": "^8.5.2",
     "input-otp": "^1.4.2",
     "jotai": "^2.11.3",
     "kbar": "^0.1.0-beta.45",

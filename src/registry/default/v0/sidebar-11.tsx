@@ -33,7 +33,7 @@ import {
 } from "@/registry/default/ui/sidebar";
 
 // Updated TreeNode type
-type TreeNode = string | [string, Array<TreeNode>];
+type TreeNode = string | [string, TreeNode[]];
 
 // Sample data representing changes and file tree
 const data = {
@@ -55,8 +55,7 @@ const data = {
     [
       "app",
       [
-        "api",
-        ["hello", ["route.ts"]],
+        ["api", [["hello", ["route.ts"]]]],
         "page.tsx",
         "layout.tsx",
         ["blog", ["page.tsx"]],
@@ -64,18 +63,16 @@ const data = {
     ],
     [
       "components",
-      ["ui", "button.tsx", "card.tsx"],
-      "header.tsx",
-      "footer.tsx",
+      [["ui", ["button.tsx", "card.tsx"]], "header.tsx", "footer.tsx"],
     ],
     ["lib", ["util.ts"]],
-    ["public", "favicon.ico", "vercel.svg"],
-    ".eslintrc.json",
-    ".gitignore",
-    "next.config.js",
-    "tailwind.config.js",
-    "package.json",
-    "README.md",
+    ["public", ["favicon.ico", "vercel.svg"]],
+    [".eslintrc.json", []],
+    [".gitignore", []],
+    ["next.config.js", []],
+    ["tailwind.config.js", []],
+    ["package.json", []],
+    ["README.md", []],
   ],
 };
 
@@ -144,9 +141,10 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           <SidebarGroupLabel>Files</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {data.tree.map((item, index) => (
+              menu
+              {/* {data.tree.map((item, index) => (
                 <Tree key={index} item={item} />
-              ))}
+              ))} */}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
@@ -157,18 +155,22 @@ function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
 }
 
 function Tree({ item }: { item: TreeNode }) {
-  const [name, ...items] = Array.isArray(item) ? item : [item];
-
-  if (!items.length) {
+  if (typeof item === "string") {
     return (
       <SidebarMenuButton
-        isActive={name === "button.tsx"}
+        isActive={item === "button.tsx"}
         className="data-[active=true]:bg-transparent"
       >
         <File />
-        {name}
+        {item}
       </SidebarMenuButton>
     );
+  }
+
+  const [name, items] = item;
+
+  if (!Array.isArray(items)) {
+    throw new Error("Invalid TreeNode structure");
   }
 
   return (
